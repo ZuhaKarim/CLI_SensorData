@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 import os
 from argparse import ArgumentParser
-#./exporter --name=kitchen/lamp --duration=60 --output=/home/jane/data.csv 
 
 #Taking user I/p
 parser = argparse.ArgumentParser()
@@ -13,27 +12,23 @@ parser.add_argument("--output", required=True, type=str, help="Please enter the 
 args = parser.parse_args()
 
 User_sensor_name = args.name
-User_time_duration = args.duration
+User_time_duration = str(args.duration)
 User_file_path = args.output
-print(User_sensor_name, User_time_duration, User_file_path)
-
 
 
 # Sending req
-url = 'http://localhost:8085/data/'+ User_sensor_name +'/'+ User_time_duration
-print(url)
+url = os.path.join('http://localhost:8085','data', User_sensor_name)
 Get_Req = requests.get(url)
-Get_Req_Respone = Get_Req.json()
+Get_Req_Response = Get_Req.json()
 
 final_time = []
 final_value = []
-for i in Get_Req_Respone['data']:
+for i in Get_Req_Response['data']:
     final_time.append(i['t'])
     final_value.append(i['vb'])
 final_result = {'time' : final_time , 'value' : final_value}
 
 #Writing to CSV
 df = pd.DataFrame(final_result)
-df.to_csv('data.csv', index = False)
-# csvFile = open('/home/zuhakarim/Work//data.csv', "w")
+df.to_csv(os.path.join(User_file_path,'data.csv'), index = False)
 
