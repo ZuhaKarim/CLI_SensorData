@@ -46,7 +46,3 @@ class Get_Sensor_Data:
         df = pd.DataFrame(self.final_result)
         df.to_csv(os.path.join(self.User_file_path,'data.csv'), index = False)
   
-Exporting_Sensor_Data = Get_Sensor_Data()
-Exporting_Sensor_Data.taking_user_ip()
-Exporting_Sensor_Data.sending_req()
-Exporting_Sensor_Data.writing_to_csv()
