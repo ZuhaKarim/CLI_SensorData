@@ -1,48 +1,87 @@
-import argparse
+import os
 import requests
 import pandas as pd
-import os
-from argparse import ArgumentParser
+from urllib3._collections import HTTPHeaderDict
+import datetime
 
-class Get_Sensor_Data:
+from utils.date_utils import get_current_time, add_current_time
 
-    def __init__(self):
-        self.User_sensor_name = ''
-        self.User_time_duration = ''
-        self.User_file_path = ''
-        self.final_result = {}
+#./exporter --name=kitchen/lamp --duration=60 --output=/home/jane/data.csv 
+
+class GetSensorData:
+
+    def __init__(self, sensor_name:str, save_path:str, duration:int, 
+                       current_time:str):
+        """
+
+        """
+        self.sensor_name = sensor_name
+        self.duration = duration
+        self.save_path = save_path
+        self.current_time = current_time
+
+        localhost = 'http://localhost:8085'
+        self.url = os.path.join(localhost,'data',self.sensor_name)
+
+    def request_sensor_data_between_time(self):
+        """
+
+        """
+        updated_time = add_current_time(self.current_time, self.duration)
+        payload = {'from': self.current_time.strftime("%Y-%m-%dT%H:%M:%SZ"), 
+                   'to': updated_time.strftime("%Y-%m-%dT%H:%M:%SZ")}
+
+        try:
+            req = requests.get(self.url, params=payload)
+            print(req.url)
+            get_response = req.json()
+            self.__process_json(get_response['data'])
+
+        except requests.exceptions.HTTPError as e:
+            print(e.response.text)
+
+    def request_sensor_data(self):
+        """
+
+        """
+        try:
+            req = requests.get(self.url, params={})
+            get_response = req.json()
+            self.__process_json(get_response['data'])
+
+        except requests.exceptions.HTTPError as e:
+            print(e.response.text)
 
 
-    #Taking user I/p
-    def taking_user_ip(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--name", required=True, type=str, help="Please enter the name of place/sensor")
-        parser.add_argument("--duration", required=True, type=int, help="Please enter the time duration in seconds")
-        parser.add_argument("--output", required=True, type=str, help="Please enter the path to save the CSV file")
-        args = parser.parse_args()
-
-        self.User_sensor_name = args.name
-        self.User_time_duration = str(args.duration)
-        self.User_file_path = args.output
-    
-
-    # Sending req
-    def sending_req(self):
-        url = os.path.join('http://localhost:8085','data', self.User_sensor_name)
-        Get_Req = requests.get(url)
-        Get_Req_Response = Get_Req.json()
-
+    def __process_json(self, data:str):
+        """
+        Extracts required data from from json.
+        """
+        final_results = {}
         final_time = []
         final_value = []
-        for i in Get_Req_Response['data']:
+        for i in data:
             final_time.append(i['t'])
             final_value.append(i['vb'])
-        self.final_result = {'time' : final_time , 'value' : final_value}
-        return self.final_result
-     
+        final_result = {'Time' : final_time , 'Value' : final_value}
+        print(len(final_result['Time']))
+        self.__write_to_csv(final_result, self.save_path)
 
-    #Writing to CSV
-    def writing_to_csv(self):
-        df = pd.DataFrame(self.final_result)
-        df.to_csv(os.path.join(self.User_file_path,'data.csv'), index = False)
-  
+
+    def __write_to_csv(self, result:dict, file_path:str):
+        """
+        Saves result to a csv file.
+        """
+        df = pd.DataFrame(result)
+        df.to_csv(file_path, index = False)
+    
+
+
+if __name__ == '__main__':
+    sn = 'kitchen/lamp'
+    d = 60
+    out = './data.csv' 
+    cur = get_current_time()
+
+    sensor = GetSensorData(sensor_name=sn, duration=d, save_path=out, current_time=cur)
+    sensor.request_sensor_data_between_time()
