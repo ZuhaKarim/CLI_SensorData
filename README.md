@@ -45,8 +45,9 @@ It can run in two modes:
    python3 exporter.py --name kitchen/lamp --duration 20 --output /home/work/data.csv 
 
 ```
-
-
+### Refrences
+https://github.com/linksmart/historical-datastore
+https://docs.python.org/3/library/
  
  
 
