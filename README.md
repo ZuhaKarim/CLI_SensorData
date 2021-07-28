@@ -9,7 +9,15 @@ This is a CLI application designed to get sensor data. It sends an API request t
     * separate util files
  * Separate classes help in scalability and to generalize the code.
  * Having separate functionality makes unit testing easier.
- * Doc strings are added for better documentation
+ * Doc strings are added for better documentation.
+
+### Setup
+* Install virtual environment first by using the following command:
+ ``` sudo apt install python3-venv ``` 
+ * Create a new virtual environment
+ ``` python3 -m venv my-project  ``` 
+ * Activate it 
+ ``` source my-project/bin/activate ``` 
 
 ### How to run
 
@@ -45,8 +53,12 @@ It can run in two modes:
    python3 exporter.py --name kitchen/lamp --duration 20 --output /home/work/data.csv 
 
 ```
+### Refrences
+https://github.com/linksmart/historical-datastore
 
+https://docs.python.org/3/library/
 
+https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/
  
  
 
