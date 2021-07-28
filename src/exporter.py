@@ -18,7 +18,8 @@ if __name__ == "__main__":
     current_time = get_current_time()
 
     sensorapi_handler = SensorApiHandler(sensor_name=sensor_name, duration=duration, save_path =save_path, current_time=current_time )
-    if duration and save_path:
+    print(sensor_name, duration, save_path)
+    if not duration:
         sensorapi_handler.request_sensor_data()
     else:
         sensorapi_handler.request_sensor_data_between_time()
