@@ -57,6 +57,8 @@ It can run in two modes:
 https://github.com/linksmart/historical-datastore
 
 https://docs.python.org/3/library/
+
+https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/
  
  
 
