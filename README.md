@@ -12,27 +12,41 @@ This is a CLI application designed to get sensor data. It sends an API request t
  * Doc strings are added for better documentation
 
 ### How to run
-The CLI application can be run using a single command:
-  * With **3** parameters
-    * The application expects 3 parameters:
-      * name
-      The name of the place and sensor for which data is required.
-      * duration
-      The time from which to which, the data is reequired.
-      * output
-      Path where the CSV file will be stored on your system.
+
+Use the following command to clone the application:    
+```
+git clone https://github.com/ZuhaKarim/CLI_SensorData
+cd CLI_SensorData/src
+
+```
+
+The CLI application has the following arguments:
+* The application expects 3 parameters:
+  
+  * name:
+  The name of the place and sensor for which data is required.
+   * duration:
+   The time from which to which, the data is required.
+   * output:
+   Path where the CSV file will be stored on your system.
       
-  Type the following command in exporter folder on CLI:    
-      '''python3 exporter.py --name kitchen/lamp --output /home/work/data.csv --duration 20'''
-      
-  * With **2** parameters
-   * The application expects 2 parameters:
-      * name
-      The name of the place and sensor for which data is required.
-      * output
-      Path where the CSV file will be stored on your system.
-  Type the following command in exporter folder on CLI:      
-      **python3 exporter.py --name kitchen/lamp --output /home/work/data.csv **
+It can run in two modes:
+#### Get all the data
+ * With 2 parameters
+   It expects --name and --output. Use following command to run it in this mode:
+   ```
+   python3 exporter.py --name kitchen/lamp --output /home/work/data.csv
+   
+   ```
+#### Get data with time limit
+ * With 3 parameters
+   It expects --name, --duration and --output. Use following command to run it in this mode:
+```
+   python3 exporter.py --name kitchen/lamp --duration 20 --output /home/work/data.csv 
+
+```
+
+
  
  
 
