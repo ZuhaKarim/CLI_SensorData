@@ -9,7 +9,15 @@ This is a CLI application designed to get sensor data. It sends an API request t
     * separate util files
  * Separate classes help in scalability and to generalize the code.
  * Having separate functionality makes unit testing easier.
- * Doc strings are added for better documentation
+ * Doc strings are added for better documentation.
+
+### Setup
+* Create a virtual environment first install it using the following command:
+ ``` sudo apt install python3-venv ``` 
+ * Create a new virtual environment
+ ``` python3 -m venv my-project-env  ``` 
+ * Activate it 
+ ``` source my-project-env/bin/activate ``` 
 
 ### How to run
 
