@@ -1,7 +1,7 @@
 import argparse
 
 
-from Get_Sensor_Data import SensorApiHandler
+from api_handler import SensorApiHandler
 from  utils.date_utils import  get_current_time
 
 if __name__ == "__main__":
