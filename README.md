@@ -12,12 +12,12 @@ This is a CLI application designed to get sensor data. It sends an API request t
  * Doc strings are added for better documentation.
 
 ### Setup
-* Create a virtual environment first install it using the following command:
+* Install virtual environment first by using the following command:
  ``` sudo apt install python3-venv ``` 
  * Create a new virtual environment
- ``` python3 -m venv my-project-env  ``` 
+ ``` python3 -m venv my-project  ``` 
  * Activate it 
- ``` source my-project-env/bin/activate ``` 
+ ``` source my-project/bin/activate ``` 
 
 ### How to run
 
