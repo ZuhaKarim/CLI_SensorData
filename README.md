@@ -28,6 +28,9 @@ cd CLI_SensorData/src
 
 ```
 
+   **Do not forget to start the server**   
+
+
 The CLI application has the following arguments:
 * The application expects 3 parameters:
   
@@ -37,7 +40,6 @@ The CLI application has the following arguments:
    The time from which to which, the data is required.
    * output:
    Path where the CSV file will be stored on your system.
-   **Do not forget to start the server**   
 It can run in two modes:
 #### Get all the data
  * With 2 parameters
